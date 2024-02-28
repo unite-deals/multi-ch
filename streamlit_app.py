@@ -84,7 +84,7 @@ st.markdown("""
 """)
 
 # Initialize session state for chat history if it doesn't exist
-if messages and select_model != "ai-vision":
+if messages and select_model != "gemini-pro-vision":
     for item in messages:
         role, parts = item.values()
         if role == "user":
@@ -99,7 +99,7 @@ if chat_message:
     st.chat_message("user").markdown(chat_message)
     res_area = st.chat_message("assistant").markdown("...")
 
-    if select_model == "ai-vision":
+    if select_model == "gemini-pro-vision":
         if "image_bytes" in globals():
             vision_message = [chat_message,
                               Image.open(io.BytesIO(image_bytes))]
@@ -152,5 +152,5 @@ if chat_message:
                 st.error("Your words violate the rules that have been set. Please try again!")
         res_area.markdown(res_text)
 
-        if select_model != "ai-vision":
+        if select_model != "gemini-pro-vision":
             messages.append({"role": "model", "parts": [res_text]})
