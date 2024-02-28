@@ -10,6 +10,11 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 GOOGLE_API_KEY="AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8"
 genai.configure(api_key="AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8")
+from dotenv import load_dotenv
+
+load_dotenv()
+os.getenv("AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8")
+genai.configure(api_key=os.getenv("AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8"))
 
 
 def get_pdf_text(pdf_docs):
@@ -22,10 +27,9 @@ def get_pdf_text(pdf_docs):
 
 
 def get_text_chunks(text):
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=10000, chunk_overlap=1000)
-    chunks = splitter.split_text(text)
-    return chunks  # list of strings
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
+    chunks = text_splitter.split_text(text)
+    return chunks
 
 
 def get_vector_store(chunks):
