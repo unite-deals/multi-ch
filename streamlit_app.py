@@ -46,12 +46,12 @@ with st.sidebar:
         else:
             st.error("Missing API key.")
     select_model = st.selectbox(
-        "Select model", ["gemini-pro", "gemini-pro-vision"])
+        "Select model", ["gemini-pro", "ai-vision"])
     temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.9, 0.1)
     st.caption(
         "Temperature controls the randomness of the model. Lower temperature results in less randomness.")
 
-    if select_model == "gemini-pro-vision":
+    if select_model == "ai-vision":
         uploaded_image = st.file_uploader(
             "upload image",
             label_visibility="collapsed",
@@ -84,7 +84,7 @@ st.markdown("""
 """)
 
 # Initialize session state for chat history if it doesn't exist
-if messages and select_model != "gemini-pro-vision":
+if messages and select_model != "ai-vision":
     for item in messages:
         role, parts = item.values()
         if role == "user":
@@ -99,12 +99,12 @@ if chat_message:
     st.chat_message("user").markdown(chat_message)
     res_area = st.chat_message("assistant").markdown("...")
 
-    if select_model == "gemini-pro-vision":
+    if select_model == "ai-vision":
         if "image_bytes" in globals():
             vision_message = [chat_message,
                               Image.open(io.BytesIO(image_bytes))]
             try:
-                res = get_response(vision_message, model="gemini-pro-vision")
+                res = get_response(vision_message, model="ai-vision")
             except google_exceptions.InvalidArgument as e:
                 if "API key not valid" in str(e):
                     st.error("API key not valid. Please pass a valid API key.")
@@ -152,5 +152,5 @@ if chat_message:
                 st.error("Your words violate the rules that have been set. Please try again!")
         res_area.markdown(res_text)
 
-        if select_model != "gemini-pro-vision":
+        if select_model != "ai-vision":
             messages.append({"role": "model", "parts": [res_text]})
