@@ -4,7 +4,26 @@ import logging
 import streamlit as st
 import google.generativeai as genai
 from google.api_core import exceptions as google_exceptions
+hide_github_link_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visiblity: hidden;}
+    header {visibility: hidden;}
+        .viewerBadge_container__1QSob {
+            display: none !important;
+        }
+    </style>
+"""
+st.markdown(hide_github_link_style, unsafe_allow_html=True)
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
+GOOGLE_API_KEY="AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8"
 temperature = 0.9
 
 generation_config = {
