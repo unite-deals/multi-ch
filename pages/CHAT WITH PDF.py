@@ -10,6 +10,7 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 GOOGLE_API_KEY="AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8"
 genai.configure(api_key="AIzaSyDVQubOFyqyRDepOELUXwVRBMnbngkHYm8")
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,7 +34,7 @@ def get_text_chunks(text):
 
 
 def get_vector_store(chunks):
-    GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     vector_store = FAISS.from_texts(chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
